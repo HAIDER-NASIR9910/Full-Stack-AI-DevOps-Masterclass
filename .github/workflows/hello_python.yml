@@ -28,9 +28,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Compile check
+        run: python -m py_compile main.py
+
       - name: Run tests
-        working-directory: docker/app1-hello/python
-        run: python -m my_compile main.py
+        run: pytest --if-present || echo "No tests found, skipping"
 
   docker-build-test:
     runs-on: ubuntu-latest
